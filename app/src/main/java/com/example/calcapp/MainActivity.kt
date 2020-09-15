@@ -13,50 +13,48 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        pulsImage.setOnClickListener(this)
-        minusImage.setOnClickListener(this)
-        multiplyImage.setOnClickListener(this)
-        divisionImage.setOnClickListener(this)
+        plusButton.setOnClickListener(this)
+        minusButton.setOnClickListener(this)
+        multiplyButton.setOnClickListener(this)
+        divisionButton.setOnClickListener(this)
     }
 
-    override fun onClick(p0: View?) {
+    override fun onClick(p0: View) {
         try {
             var i = editTextNumber.text.toString().toDouble()
             var i2 = editTextNumber2.text.toString().toDouble()
 
             var x: Double
             val intent = Intent(this, ResultActivity::class.java)
-            if (p0 != null) {
+
                 when (p0.id) {
-                    R.id.pulsImage -> {
+                    R.id.plusButton -> {
                         x = (i + i2)
                         intent.putExtra("VALUE1", x)
                         Log.d("TEST", x.toString())
-                        pulsImage.imageAlpha = 50
                     }
-                    R.id.minusImage -> {
+                    R.id.minusButton -> {
                         x = (i - i2)
                         intent.putExtra("VALUE1", x)
                         Log.d("TEST", x.toString())
-                        minusImage.imageAlpha = 50
                     }
-                    R.id.multiplyImage -> {
+                    R.id.multiplyButton -> {
                         x = (i * i2)
                         intent.putExtra("VALUE1", x)
                         Log.d("TEST", x.toString())
-                        multiplyImage.imageAlpha = 50
                     }
-                    R.id.divisionImage -> {
+                    R.id.divisionButton -> {
                         x = (i / i2)
                         intent.putExtra("VALUE1", x)
                         Log.d("TEST", x.toString())
-                        divisionImage.imageAlpha = 50
                     }
                 }
                 startActivity(intent)
-            }
         }catch (e :NumberFormatException){
-            Toast.makeText(this, "数値を入力してください。", Toast.LENGTH_SHORT).show()
+            Snackbar.make(p0,"数値を入力してください",Snackbar.LENGTH_INDEFINITE).setAction("確認"){
+                Log.d("UI_PARTS", "Snackbarをタップした")
+            }.show()
+//            Toast.makeText(this, "数値を入力してください。", Toast.LENGTH_SHORT).show()
         }
 
     }
